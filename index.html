@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prompt Injection Radar｜真实 GitHub Repo 驱动体验</title>
+  <meta name="description" content="Powered by deadbits/vigil-llm. 用真实开源 repo 的检测规则体验 prompt injection 风险扫描。" />
+  <style>
+    :root{--bg:#070914;--panel:rgba(255,255,255,.07);--line:rgba(255,255,255,.13);--text:#f5f7ff;--muted:#9aa4bd;--green:#6fffc2;--yellow:#ffd166;--red:#ff5c7a;--blue:#7aa7ff;--purple:#b490ff}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 20% 5%,rgba(122,167,255,.25),transparent 28%),radial-gradient(circle at 80% 15%,rgba(180,144,255,.18),transparent 30%),linear-gradient(180deg,#070914,#0b1020 60%,#070914);color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;min-height:100vh;overflow-x:hidden}.grid{position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,black,transparent 78%);pointer-events:none}.scanline{position:fixed;left:0;right:0;top:-10%;height:30%;background:linear-gradient(to bottom,transparent,rgba(111,255,194,.08),transparent);animation:sweep 6s ease-in-out infinite;pointer-events:none}@keyframes sweep{0%{transform:translateY(-40vh)}55%{transform:translateY(120vh)}100%{transform:translateY(120vh)}}a{color:var(--green)}.wrap{width:min(1120px,calc(100% - 36px));margin:0 auto;position:relative}.nav{height:74px;display:flex;align-items:center;justify-content:space-between;color:#c9d2ea}.brand{display:flex;gap:10px;align-items:center;font-weight:700}.logo{width:14px;height:14px;border-radius:50%;background:var(--green);box-shadow:0 0 22px var(--green)}.navlinks{display:flex;gap:18px;font-size:14px}.navlinks a{text-decoration:none;color:#c9d2ea}.hero{padding:72px 0 38px;display:grid;grid-template-columns:1.05fr .95fr;gap:34px;align-items:center}.eyebrow{display:inline-flex;gap:10px;align-items:center;border:1px solid var(--line);background:rgba(255,255,255,.055);border-radius:999px;padding:8px 12px;color:#cbd5f1;font-size:13px}.pulse{width:7px;height:7px;border-radius:99px;background:var(--green);box-shadow:0 0 16px var(--green);animation:pulse 1.6s infinite}@keyframes pulse{50%{transform:scale(1.6);opacity:.55}}h1{font-size:clamp(42px,7vw,76px);line-height:.98;margin:22px 0 18px;letter-spacing:-.06em}.grad{background:linear-gradient(90deg,var(--green),var(--blue),var(--purple));-webkit-background-clip:text;color:transparent}.lead{color:#b4bed8;font-size:18px;line-height:1.7;max-width:650px}.actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}.btn{border:1px solid var(--line);background:rgba(255,255,255,.08);color:#fff;padding:13px 17px;border-radius:14px;font-weight:700;cursor:pointer;transition:.2s}.btn:hover{transform:translateY(-2px);border-color:rgba(111,255,194,.5);box-shadow:0 14px 40px rgba(0,0,0,.25)}.btn.primary{background:linear-gradient(135deg,rgba(111,255,194,.95),rgba(122,167,255,.95));color:#061018}.card{border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.045));border-radius:28px;box-shadow:0 30px 100px rgba(0,0,0,.38);backdrop-filter:blur(16px)}.terminal{overflow:hidden}.bar{height:42px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 16px;color:#aab4ce;font-size:13px}.dots span{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;background:#ff5c7a}.dots span:nth-child(2){background:#ffd166}.dots span:nth-child(3){background:#6fffc2}.terminal pre{margin:0;padding:22px;white-space:pre-wrap;color:#d8e1ff;line-height:1.65;font-size:14px;min-height:260px}.section{padding:36px 0}.section h2{font-size:34px;letter-spacing:-.03em;margin:0 0 12px}.muted{color:var(--muted);line-height:1.7}.demo{display:grid;grid-template-columns:.86fr 1.14fr;gap:18px}.scenario-list{padding:16px;display:grid;gap:10px}.scenario{width:100%;text-align:left;border:1px solid var(--line);background:rgba(255,255,255,.045);color:#dfe6fb;border-radius:16px;padding:14px;cursor:pointer}.scenario.active{border-color:rgba(111,255,194,.75);background:rgba(111,255,194,.10)}.scenario small{display:block;color:var(--muted);margin-top:5px}.result{padding:20px}.risk{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:8px 12px;font-weight:800;font-size:13px}.risk.low{background:rgba(111,255,194,.12);color:var(--green)}.risk.medium{background:rgba(255,209,102,.13);color:var(--yellow)}.risk.high{background:rgba(255,92,122,.13);color:var(--red)}.promptbox{margin:16px 0;padding:16px;border-radius:18px;background:rgba(0,0,0,.22);border:1px solid var(--line);color:#e4e9fb;line-height:1.65}.matches{display:grid;gap:10px;margin-top:16px}.match{border:1px solid var(--line);background:rgba(255,255,255,.05);border-radius:16px;padding:14px;animation:rise .38s ease both}.match b{color:#fff}.match .tag{display:inline-block;margin-left:7px;padding:3px 7px;border-radius:999px;background:rgba(122,167,255,.14);color:#bcd0ff;font-size:12px}@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}.engine{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.stat{padding:16px}.stat strong{display:block;font-size:24px}.usecases{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.use{padding:18px}.use h3{margin:0 0 8px}.footer{padding:42px 0 56px;color:#8f9ab7;font-size:14px}@media(max-width:840px){.hero,.demo{grid-template-columns:1fr}.engine,.usecases{grid-template-columns:1fr}.navlinks{display:none}}
+  </style>
+</head>
+<body>
+<div class="grid"></div><div class="scanline"></div>
+<div class="wrap">
+  <nav class="nav"><div class="brand"><span class="logo"></span>Frontier Repo Experience</div><div class="navlinks"><a href="#demo">体验</a><a href="#engine">真实 Repo</a><a href="https://github.com/deadbits/vigil-llm">Vigil</a></div></nav>
+  <section class="hero">
+    <div>
+      <div class="eyebrow"><span class="pulse"></span>Powered by a cloned GitHub repo · deadbits/vigil-llm</div>
+      <h1>别让 Agent <span class="grad">裸奔接收 Prompt。</span></h1>
+      <p class="lead">这个体验不是静态概念页。后端先 clone 真实开源项目 <b>Vigil</b>，用它的 YARA prompt-injection 规则跑出扫描结果，再把结果包装成普通人能看懂的一页。</p>
+      <div class="actions"><button class="btn primary" onclick="selectScenario('instruction-bypass')">扫描攻击样例</button><button class="btn" onclick="selectScenario('support-email')">对比普通请求</button><a class="btn" href="#engine" style="text-decoration:none">看真实来源</a></div>
+    </div>
+    <div class="card terminal"><div class="bar"><div class="dots"><span></span><span></span><span></span></div><span>vigil-yara scan</span></div><pre id="terminalText">$ git clone https://github.com/deadbits/vigil-llm
+$ compile data/yara/*.yar
+$ scan prompt samples
+
+等待加载真实扫描结果...</pre></div>
+  </section>
+
+  <section class="section" id="demo">
+    <h2>一眼看懂：这句 Prompt 危不危险？</h2>
+    <p class="muted">左边选择一个输入，右边展示 Vigil 规则命中的风险类型。这里的 match 不是我手写的营销文案，而是由上游 repo 的 YARA signature 跑出来的。</p>
+    <div class="demo">
+      <div class="card scenario-list" id="scenarioList"></div>
+      <div class="card result" id="result"></div>
+    </div>
+  </section>
+
+  <section class="section" id="engine">
+    <h2>真实 Repo 证据</h2>
+    <p class="muted">这版 v0 的重点不是功能多，而是纠正方向：一定要从真实 GitHub repo 出发。</p>
+    <div class="engine" id="engineStats"></div>
+  </section>
+
+  <section class="section">
+    <h2>这个体验适合什么场景？</h2>
+    <div class="usecases">
+      <div class="card use"><h3>课堂 / Workshop</h3><p class="muted">不用部署复杂安全栈，直接让学生看到 prompt injection 如何被规则命中。</p></div>
+      <div class="card use"><h3>企业 AI 风险沟通</h3><p class="muted">给业务方展示：Agent 上线前需要输入扫描、敏感信息外泄检测和审计层。</p></div>
+      <div class="card use"><h3>Builder 包装范式</h3><p class="muted">证明一个开源安全 repo 可以被包成 30 秒可懂的体验，而不是丢给用户 README。</p></div>
+    </div>
+  </section>
+
+  <div class="footer">Boundary: v0 使用 Vigil 的 YARA signature 做离线扫描；还不是完整 Vigil REST API / transformer / vector DB 版本。下一版可以接真正后端，让用户输入任意 prompt 实时扫描。</div>
+</div>
+<script>
+let payload=null, selected=null;
+const riskLabel={low:'LOW · 未命中',medium:'MEDIUM · 可疑输入',high:'HIGH · 多重风险'};
+async function load(){
+  payload=await fetch('public/vigil-results.json').then(r=>r.json());
+  selected=payload.scenarios.find(s=>s.id==='instruction-bypass')||payload.scenarios[0];
+  renderList(); renderResult(); renderEngine(); typeTerminal();
+}
+function selectScenario(id){ selected=payload.scenarios.find(s=>s.id===id); renderList(); renderResult(); typeTerminal(); document.querySelector('#demo').scrollIntoView({behavior:'smooth'}); }
+function renderList(){
+  scenarioList.innerHTML=payload.scenarios.map(s=>`<button class="scenario ${selected.id===s.id?'active':''}" data-id="${s.id}"><b>${s.label}</b><small>${s.match_count} rules matched · ${s.risk.toUpperCase()}</small></button>`).join('');
+  scenarioList.querySelectorAll('.scenario').forEach(btn=>btn.addEventListener('click',()=>selectScenario(btn.dataset.id)));
+}
+function renderResult(){
+  const ms=selected.matches.length?selected.matches.map(m=>`<div class="match"><b>${m.rule}</b><span class="tag">${m.category}</span><p class="muted">${m.description||'Vigil signature match'}</p></div>`).join(''):`<div class="match"><b>没有命中 Vigil 规则</b><p class="muted">这不代表绝对安全，只代表当前 v0 的 YARA 规则没有发现明显风险。</p></div>`;
+  result.innerHTML=`<div class="risk ${selected.risk}">${riskLabel[selected.risk]}</div><div class="promptbox">${escapeHtml(selected.prompt)}</div><p class="muted"><b>用户应该理解：</b>${selected.user_takeaway}</p><div class="matches">${ms}</div>`;
+}
+function renderEngine(){
+  const e=payload.engine;
+  engineStats.innerHTML=[['Repo',e.repo],['Commit',e.commit],['Rules',payload.rule_count+' YARA files'],['Mode','offline scan']].map(x=>`<div class="card stat"><span class="muted">${x[0]}</span><strong>${x[1]}</strong></div>`).join('');
+}
+function typeTerminal(){
+  const lines=[`$ upstream=${payload.engine.repo}@${payload.engine.commit}`,`$ rules=${payload.rule_count} YARA signatures`,`$ scan "${selected.label}"`,`risk=${selected.risk.toUpperCase()} · matches=${selected.match_count}`, ...selected.matches.map(m=>`hit: ${m.rule} / ${m.category}`)];
+  let text=lines.join('\n'), i=0; terminalText.textContent=''; const timer=setInterval(()=>{terminalText.textContent=text.slice(0,++i); if(i>=text.length) clearInterval(timer);},12);
+}
+function escapeHtml(s){return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+load().catch(e=>{terminalText.textContent='加载失败：'+e;});
+</script>
+</body></html>

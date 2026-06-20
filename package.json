@@ -1,0 +1,1 @@
+{"scripts":{"start":"python3 -m http.server 8790","generate":"../frontier-repo-experiences/vigil-llm/.venv/bin/python scripts/run_vigil_scan.py"},"dependencies":{}}
