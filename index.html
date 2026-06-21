@@ -18,13 +18,15 @@
     <div>
       <div class="eyebrow"><span class="dot"></span>For people tracking the world’s newest AI moves · zero setup · repo-powered</div>
       <h1>把世界最新 AI 动态，变成 30 分钟可上手的体验</h1>
-      <p class="lead">这个 Agent 面向一群人：想知道世界上最新的 AI / GitHub / paper / product 动态，但不想读 40 页论文、clone repo、配环境、踩坑。它把前沿项目压缩成一个能立刻体验、能下载结果、能继续复用的最小工作台。下面这个 Prompt Injection Audit，就是第一种可收费 artifact。</p>
+      <p class="lead">这是一个 <b>Frontier Agent</b>：它把世界上刚出现的 AI / GitHub / paper / product 新东西，转化成普通人 30 分钟内可以打开、点击、体验、下载结果、继续复用的最小工作台。你不用先读论文、不用 clone repo、不用配环境；先摸到真实 input/output，再决定要不要深入。下面这个 Prompt Injection Audit，是第一个样例。</p>
       <div class="actions"><button class="btn primary" onclick="jumpFinding()">立刻看一个前沿样例</button><button class="btn" onclick="selectFirstSafe()">最小成本上手</button><a class="btn" href="public/vigil-results.json">下载机器结果</a></div>
     </div>
     <div class="card report" id="heroReport"></div>
   </section>
 
   <section class="section" id="positioning">
+    <div class="sectionHead"><div><h2>这是什么</h2><p class="muted">它不是新闻摘要，不是 GitHub 教程，也不是单个安全工具。它是一个把前沿信号变成可体验 artifact 的 Agent。</p></div></div>
+    <div class="card panel" style="margin-bottom:16px"><h3>Frontier Agent</h3><p class="lead" style="font-size:22px;margin:0 0 14px">别人看到的是一个新 repo、一篇 paper、一个产品发布；这个 Agent 把它变成一个可以打开、点击、体验、下载结果、继续复用的最小工作台。</p><div class="detailGrid"><div class="kv"><span>Input</span><strong>AI / GitHub / paper / product signal</strong></div><div class="kv"><span>Process</span><strong>run / verify / compress</strong></div><div class="kv"><span>Output</span><strong>demo + report + exportable artifact</strong></div></div></div>
     <div class="sectionHead"><div><h2>Who this Agent is for</h2><p class="muted">不是给已经会 clone repo 的 hardcore developer，而是给想持续跟上世界最新动态、并立刻摸到真实东西的人。</p></div></div>
     <div class="scope">
       <div class="card panel"><h3>目标用户</h3><ul><li>每天想知道 AI / GitHub / paper / product 最新变化的人</li><li>不想只看新闻摘要，想 30 分钟内看到真实 input/output 的人</li><li>想用最小时间成本判断一个前沿项目“到底有没有用”的 founder / builder / investor / creator</li><li>想把前沿信息变成 dashboard、报告、内容或工作流资产的人</li></ul></div>
@@ -33,7 +35,7 @@
   </section>
 
   <section class="section" id="workbench">
-    <div class="sectionHead"><div><h2>Threat Workbench</h2><p class="muted">这是这个 Agent 的第一个样例：把一个 AI 安全前沿 repo 转成普通人能直接上手的审计工作台。选择一条 prompt，看它如何被真实 Vigil 规则扫描、命中、解释和处置。</p></div><a class="btn" href="public/vigil-audit-summary.csv">Export audit CSV</a></div>
+    <div class="sectionHead"><div><h2>Threat Workbench</h2><p class="muted">这是 Frontier Agent 的第一个样例：把 AI 安全前沿 repo <b>deadbits/vigil-llm</b> 转成普通人能直接上手的审计工作台。选择一条 prompt，看它如何被真实 Vigil 规则扫描、命中、解释和处置。</p></div><a class="btn" href="public/vigil-audit-summary.csv">Export audit CSV</a></div>
     <div class="card panel" id="execSummary" style="margin-bottom:16px"></div>
     <div class="dashboard">
       <div class="card queue"><div class="queueTitle"><b>Prompt Corpus</b><span id="queueCount" class="badge low"></span></div><div id="queue"></div></div>
